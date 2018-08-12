@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<robot name="basic_car">
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+    <link name="base_link">
+        <visual>
+          <geometry>           
+
+            <mesh filename="package://carsim_discription/meshes/car_019.dae"/> 
+          </geometry>
+          
+        <origin rpy="0 0 -1.5708" xyz="-0.05 0 0.56"/>
+         <material name="blue"/>
+        </visual>    
+        <collision>
+          <geometry>
+          <box size="1.4 3.8 0.3"/>
+          </geometry>
+        <origin rpy="0 0 -1.5708" xyz="0 0 0.45"/>
+        </collision>
+        
+        <inertial>
+              <mass value="10"/>
+              <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+              <origin rpy="0 0 -1.5708" xyz="-0.05 0 0.56"/>
+    </inertial>
+    </link>    
+    
+    <link name="left_wheel">
+        <collision>
+          <geometry>
+         <cylinder length="0.1" radius="0.3"/>
+          </geometry>
+          <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        </collision>
+        <visual>
+          <geometry>
+         <cylinder length="0.1" radius="0.3"/>
+          </geometry>
+          <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        </visual>
+            <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+    </inertial>
+    </link>
+    
+    <link name="right_wheel">
+
+        <collision>
+          <geometry>
+         <cylinder length="0.1" radius="0.3"/>
+          </geometry>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        </collision>
+        <visual>
+          <geometry>
+         <cylinder length="0.1" radius="0.3"/>
+          </geometry>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        </visual>
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+    </inertial>
+  </link>
+  
+    <link name="rear_left_wheel">
+
+        <collision>
+          <geometry>
+         <cylinder length="0.1" radius="0.3"/>
+          </geometry>
+        <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        </collision>
+        <visual>
+          <geometry>
+         <cylinder length="0.1" radius="0.3"/>
+          </geometry>
+          <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+        </visual>
+            <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+    </inertial>
+    </link>
+    
+    <link name="rear_right_wheel">
+        <collision>
+          <geometry>
+         <cylinder length="0.1" radius="0.3"/>
+          </geometry>
+          <origin rpy="0 1.5707 1.5707" xyz="-0 0 0"/>
+        </collision>
+        <visual>
+          <geometry>
+         <cylinder length="0.1" radius="0.3"/>
+
+          </geometry>
+          <origin rpy="0 1.5707 1.5707" xyz="-0 0 0"/>
+        </visual>
+            <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <origin rpy="0 1.5707 1.5707" xyz="-0 0 0"/>
+    </inertial>
+  </link>
+
+
+
+    <joint type="continuous" name="left_wheel_hinge">
+        <axis xyz="0 1 0"/>
+        <origin rpy="0 0 0" xyz="1.25 0.8 0.2"/>
+        <parent link="base_link"/>
+        <child link="left_wheel"/>
+        <limit effort="100" velocity="6.0"  />
+
+    </joint>
+
+    <joint type="continuous" name="right_wheel_hinge">
+        <axis xyz="0 1 0"/>
+        <origin rpy="0 0 0" xyz="1.25 -0.8 0.2"/>  
+        <parent link="base_link"/>
+        <child link="right_wheel"/>
+        <limit effort="100" velocity="6.0"  />
+    </joint>
+    
+    <joint type="continuous" name="rear_left_wheel_hinge">
+        <axis xyz="0 1 0"/>
+        <origin rpy="0 0 0" xyz="-1.25 0.8 0.2"/>
+        <parent link="base_link"/>
+        <child link="rear_left_wheel"/>
+        <mimic joint="left_wheel_hinge"/> 
+    </joint>
+
+    <joint type="continuous" name="rear_right_wheel_hinge">
+        <axis xyz="0 1 0"/>
+        <origin rpy="0 0 0" xyz="-1.25 -0.8 0.2"/>
+        <parent link="base_link"/>
+        <child link="rear_right_wheel"/>
+        <mimic joint="right_wheel_hinge"/>         
+  </joint>
+ <!--
+TRANSMISSION
+ -->   
+   <transmission name="right_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_wheel_hinge">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>    
+    </joint>
+    <actuator name="rightMotor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+    <transmission name="left_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_wheel_hinge">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="leftMotor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+  <gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    <robotNamespace>/carsim</robotNamespace>
+  </plugin>
+</gazebo>
+
+
+<gazebo>
+  <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+    <alwaysOn>true</alwaysOn>
+    <publishWheelTF>true</publishWheelTF>
+    <publishWheelJointState>true</publishWheelJointState>
+    <updateRate>100</updateRate>
+    <leftJoint>left_wheel_hinge</leftJoint>
+    <rightJoint>right_wheel_hinge</rightJoint>
+    <wheelSeparation>1.4</wheelSeparation>
+    <wheelDiameter>0.6</wheelDiameter>
+    <torque>20</torque>
+    <commandTopic>carsim/cmd_vel</commandTopic>
+    <odometryTopic>carsim/odom_diffdrive</odometryTopic>
+    <odometryFrame>odom</odometryFrame>
+    <robotBaseFrame>base_link</robotBaseFrame>
+  </plugin>
+</gazebo>
+
+  <!--
+TRANSMISSION
+ -->   
+ 
+ 
+ <!--
+ SENSORS
+ --> 
+  
+  
+  <joint name="camera_joint1" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.1 0 1.1" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="camera_link1"/>
+  </joint>
+
+  <!-- Camera -->
+  <link name="camera_link1">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+    <!-- camera -->
+  <gazebo reference="camera_link1">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>carsim/camera1</cameraName>
+        <imageTopicName>image_raw1</imageTopicName>
+        <cameraInfoTopicName>camera_info1</cameraInfoTopicName>
+        <frameName>camera_link1</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+<!-- camera 2-->
+
+
+<joint name="camera_joint2" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="-1.5 0 1" rpy="0 0 3.1415"/>
+    <parent link="base_link"/>
+    <child link="camera_link2"/>
+  </joint>
+
+  <!-- Camera 2-->
+  <link name="camera_link2">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+    <!-- camera 2-->
+  <gazebo reference="camera_link2">
+    <sensor type="camera" name="camera2">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>carsim/camera2</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info2</cameraInfoTopicName>
+        <frameName>camera_link2</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+<joint name="hokuyo_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="1.5 0 0.76" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="hokuyo_link"/>
+  </joint>
+
+  <!-- Hokuyo Laser -->
+  <link name="hokuyo_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://carsim_discription/meshes/hokuyo.dae"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  
+  
+    <!-- hokuyo -->
+  <gazebo reference="hokuyo_link">
+    <sensor type="ray" name="head_hokuyo_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/carsim/laser/scan</topicName>
+        <frameName>hokuyo_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+<!--
+SENSORS
+-->
+
+    
+</robot>
