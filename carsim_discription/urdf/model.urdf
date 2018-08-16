@@ -119,7 +119,7 @@
         <origin rpy="0 0 0" xyz="1.25 0.8 0.2"/>
         <parent link="base_link"/>
         <child link="left_wheel"/>
-        <limit effort="100" velocity="6.0"  />
+        <limit effort="100" velocity="100.0"  />
 
     </joint>
 
@@ -128,7 +128,7 @@
         <origin rpy="0 0 0" xyz="1.25 -0.8 0.2"/>  
         <parent link="base_link"/>
         <child link="right_wheel"/>
-        <limit effort="100" velocity="6.0"  />
+        <limit effort="100" velocity="100.0"  />
     </joint>
     
     <joint type="continuous" name="rear_left_wheel_hinge">
