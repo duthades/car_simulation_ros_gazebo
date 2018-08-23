@@ -28,7 +28,7 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install dpkg
   - sudo apt-get install -y python-catkin-pkg python-rosdep python-wstool ros-$ROS_DISTRO-catkin
-  - sudo apt-get install ros-$ROS_DISTRO-laser-assembler ros-$ROS_DISTRO-laser-geometry 
+  - sudo apt-get install ros-$ROS_DISTRO-laser-assembler ros-$ROS_DISTRO-laser-geometry ros-$ROS_DISTRO-pcl-ros
   - sudo apt-get install libpcl1
   - source /opt/ros/$ROS_DISTRO/setup.bash
   # Prepare rosdep to install dependencies.
@@ -59,9 +59,8 @@ before_script:
   - wstool up
   # package depdencies: install using rosdep.
   - cd ~/catkin_ws 
-  - rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y --as-root pip:no --skip-keys="gazebo"
-#- rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
-
+  - rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+# - rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y --as-root pip:no --skip-keys="gazebo"
 # Compile and test (mark the build as failed if any step fails). If the
 # CATKIN_OPTIONS file exists, use it as an argument to catkin_make, for example
 # to blacklist certain packages.
