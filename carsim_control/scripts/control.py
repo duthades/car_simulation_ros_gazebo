@@ -6,8 +6,8 @@ from std_msgs.msg import Float64
 rospy.init_node('car_controller', anonymous=True)
 topic_right = '/carsim/rightWheel_effort_controller/command'
 topic_left = '/carsim/leftWheel_effort_controller/command'
-right_publisher = rospy.Publisher(topic_right, Float64, queue_size=10)
-left_publisher = rospy.Publisher(topic_left, Float64, queue_size=10)
+right_publisher = rospy.Publisher(topic_right, Float64, queue_size=1)
+left_publisher = rospy.Publisher(topic_left, Float64, queue_size=1)
 
 
 def straight():
@@ -16,11 +16,13 @@ def straight():
 
 
 def leftTurn():
-    pass
+    right_publisher.publish(200)
+    left_publisher.publish(-400)
 
 
 def rightTurn():
-    pass
+    right_publisher.publish(-200)
+    left_publisher.publish(200)
 
 
 def stop():
@@ -32,12 +34,19 @@ def plan_route():
 
     #  velocity_publisher.publish(vel_msg)
 
-    rate = rospy.Rate(1)
+    rate = rospy.Rate(60)
     while not rospy.is_shutdown():
-        right_publisher.publish(300)
-        left_publisher.publish(-300)
-        rate.sleep()
-
+        for i in range(30):
+            straight()
+            rate.sleep()
+        for i in range(20):
+            stop()
+            rate.sleep()
+        for i in range(20):
+            leftTurn()
+            rate.sleep()
+        stop()
+        break
         # Loop to move the turtle in an specified distance
         # while(temp < distance):
 

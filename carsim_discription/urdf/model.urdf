@@ -23,7 +23,7 @@
         </collision>
         
         <inertial>
-              <mass value="10"/>
+              <mass value="0.5"/>
               <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
               <origin rpy="0 0 -1.5708" xyz="-0.05 0 0.56"/>
     </inertial>
@@ -34,6 +34,14 @@
           <geometry>
          <cylinder length="0.1" radius="0.3"/>
           </geometry>
+        <surface>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+            </friction>
+        </surface>
           <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
         </collision>
         <visual>
@@ -55,6 +63,14 @@
           <geometry>
          <cylinder length="0.1" radius="0.3"/>
           </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+            </friction>
+        </surface>
         <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
         </collision>
         <visual>
@@ -76,6 +92,14 @@
           <geometry>
          <cylinder length="0.1" radius="0.3"/>
           </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0</mu>
+                <mu2>0</mu2>
+              </ode>
+            </friction>
+        </surface>
         <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
         </collision>
         <visual>
@@ -96,6 +120,14 @@
           <geometry>
          <cylinder length="0.1" radius="0.3"/>
           </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0</mu>
+                <mu2>0</mu2>
+              </ode>
+            </friction>
+        </surface>
           <origin rpy="0 1.5707 1.5707" xyz="-0 0 0"/>
         </collision>
         <visual>
