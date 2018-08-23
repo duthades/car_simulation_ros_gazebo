@@ -1,0 +1,7 @@
+<launch>
+    <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
+        <remap from="scan" to="/carsim/laser/scan"/>
+        <param name="max_clouds" type="int" value="400" />
+        <param name="fixed_frame" type="string" value="odom" />
+    </node>
+</launch>

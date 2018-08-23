@@ -24,9 +24,9 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Preferences:
-  PromptSaveOnExit: true
+  PromptSaveOnExit: false
 Visualization Manager:
   Class: ""
   Displays:
@@ -119,8 +119,6 @@ Visualization Manager:
           Value: true
         left_wheel:
           Value: true
-        odom:
-          Value: true
         rear_left_wheel:
           Value: true
         rear_right_wheel:
@@ -133,22 +131,21 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        odom:
-          base_link:
-            camera_link1:
-              {}
-            camera_link2:
-              {}
-            hokuyo_link:
-              {}
-            left_wheel:
-              {}
-            rear_left_wheel:
-              {}
-            rear_right_wheel:
-              {}
-            right_wheel:
-              {}
+        base_link:
+          camera_link1:
+            {}
+          camera_link2:
+            {}
+          hokuyo_link:
+            {}
+          left_wheel:
+            {}
+          rear_left_wheel:
+            {}
+          rear_right_wheel:
+            {}
+          right_wheel:
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
