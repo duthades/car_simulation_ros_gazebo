@@ -29,6 +29,7 @@ before_install:
   - sudo apt-get install dpkg
   - sudo apt-get install -y python-catkin-pkg python-rosdep python-wstool ros-$ROS_DISTRO-catkin
   - sudo apt-get install ros-$ROS_DISTRO-laser-assembler ros-$ROS_DISTRO-laser-geometry 
+  - sudo apt-get install libpcl1
   - source /opt/ros/$ROS_DISTRO/setup.bash
   # Prepare rosdep to install dependencies.
   - sudo rosdep init
