@@ -1,7 +1,9 @@
 <launch>
-    <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
+    <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler" args="2> /dev/null">
+        <param name="/use_sim_time" value="true"/>
         <remap from="scan" to="/carsim/laser/scan"/>
         <param name="max_clouds" type="int" value="400" />
         <param name="fixed_frame" type="string" value="odom" />
     </node>
+    <node name="laser_assembler" pkg="carsim_gazebo" type="laser_assembler" />
 </launch>

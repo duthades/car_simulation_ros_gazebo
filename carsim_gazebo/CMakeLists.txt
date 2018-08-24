@@ -34,12 +34,5 @@ MESSAGE("catkin_LIBRARIES: " ${catkin_LIBRARIES})
 
 
 
-add_executable(laser_scan_to_pointcloud src/laser_scan_to_pointcloud.cpp )
-target_link_libraries(laser_scan_to_pointcloud  ${catkin_LIBRARIES}  ${PCL_LIBRARIES}  )
-
-
-add_executable(laser_assembler_service_caller src/laser_assembler_service_caller.cpp )
-target_link_libraries(laser_assembler_service_caller  ${catkin_LIBRARIES}  ${PCL_LIBRARIES}  )
-
-add_executable(temp1 src/temp1.cpp )
-target_link_libraries(temp1  ${catkin_LIBRARIES}  ${PCL_LIBRARIES}  )
+add_executable(laser_assembler src/laser_assembler.cpp )
+target_link_libraries(laser_assembler  ${catkin_LIBRARIES}  ${PCL_LIBRARIES}  )

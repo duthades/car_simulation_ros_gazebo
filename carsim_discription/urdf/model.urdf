@@ -23,8 +23,8 @@
         </collision>
         
         <inertial>
-              <mass value="0.5"/>
-              <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+              <mass value="1"/>
+              <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
               <origin rpy="0 0 -1.5708" xyz="-0.05 0 0.56"/>
     </inertial>
     </link>    
@@ -52,7 +52,7 @@
         </visual>
             <inertial>
       <mass value="1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
       <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
     </inertial>
     </link>
@@ -81,7 +81,7 @@
         </visual>
     <inertial>
       <mass value="1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
       <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
     </inertial>
   </link>
@@ -110,7 +110,7 @@
         </visual>
             <inertial>
       <mass value="1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
       <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
     </inertial>
     </link>
@@ -139,7 +139,7 @@
         </visual>
             <inertial>
       <mass value="1"/>
-      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
       <origin rpy="0 1.5707 1.5707" xyz="-0 0 0"/>
     </inertial>
   </link>
@@ -433,6 +433,17 @@ TRANSMISSION
 <!--
 SENSORS
 -->
-
+<gazebo>
+  <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+    <alwaysOn>true</alwaysOn>
+    <updateRate>50.0</updateRate>
+    <bodyName>base_link</bodyName>
+    <topicName>ground_truth/state</topicName>
+    <gaussianNoise>0.01</gaussianNoise>
+    <frameName>world</frameName>
+    <xyzOffsets>0 0 0</xyzOffsets>
+    <rpyOffsets>0 0 0</rpyOffsets>
+  </plugin>
+</gazebo>
     
 </robot>
