@@ -3,7 +3,10 @@
 
 A car simulation in a world using ROS and Gazebo.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/NQIqbieW0SM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![A car with laser in a Gazebo world using ROS.
+](https://yt-embed.herokuapp.com/embed?v=NQIqbieW0SM)](https://www.youtube.com/watch?v=NQIqbieW0SM "A car with laser in a Gazebo world using ROS.")
+
+
 
 ## Building the package
 ### Path for ROS workspace
